@@ -9,16 +9,20 @@ if [ ! -f $1 ]; then
   exit 1
 fi
 
+sed 's/[0-9]*//g' $1 > temp.txt
+
+tr -d '[:punct:]' < temp.txt > output.txt
+
 COUNTER=0
 while read line; do
     for word in $line; do
-      v=$(grep -i "$word" /usr/share/dict/words)
+      v=$(grep -i -w "$word" /usr/share/dict/words)
       if [ -z "$v" ]; then
-        echo $word >> $1.spe
+        echo $word >> $1.spelling
         ((COUNTER++))
       fi
     done
-done <"$1" 
+done <"output.txt" 
 
 echo "The number of misspelled words are: $COUNTER"
 
