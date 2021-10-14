@@ -9,19 +9,17 @@ if [ ! -f $1 ]; then
   exit 1
 fi
 
-dictionary = cat '/usr/share/dict/words'
-
+COUNTER=0
 while read line; do
     for word in $line; do
-        if
-          grep $word # dictionary
-        else
-          $word >> linus.txt.spelling 
-          ((counter++))
-        fi
+      v='$(grep -i "$word" /usr/share/dict/words)'
+      if [ -z "$v" ]; then
+        echo $word >> $1.spelling
+        (( COUNTER++ ))
+      fi
     done
-done <"linus.txt" 
+done <"$1" 
 
-echo "The number of misspelled words are: $counter"
+echo "The number of misspelled words are: $COUNTER"
 
 exit 0
