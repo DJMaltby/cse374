@@ -12,10 +12,10 @@ fi
 COUNTER=0
 while read line; do
     for word in $line; do
-      v='$(grep -i "$word" /usr/share/dict/words)'
+      v=$(grep -i "$word" /usr/share/dict/words)
       if [ -z "$v" ]; then
-        echo $word >> $1.spelling
-        (( COUNTER++ ))
+        echo $word >> $1.spe
+        ((COUNTER++))
       fi
     done
 done <"$1" 
