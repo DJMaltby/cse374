@@ -1,4 +1,5 @@
-#!/bin/bash   
+#!/bin/sh
+
 if [ $# -ne 1 ]; then
   echo “$0 requires 1 argument” >&2
   exit 1
